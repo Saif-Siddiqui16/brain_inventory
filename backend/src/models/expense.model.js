@@ -19,10 +19,11 @@ const expenseSchema = new mongoose.Schema({
     required: true,
   },
   sharedWith: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+     {
+    type: String,
+    lowercase: true,
+    trim: true,
+  }
   ],
   createdAt: {
     type: Date,
