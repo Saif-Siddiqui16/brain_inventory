@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -21,7 +23,7 @@ const AuthForm: React.FC = () => {
   });
   const [errors, setErrors] = useState<Errors>({});
   const [message, setMessage] = useState<string>("");
-
+  const navigate=useNavigate()
   const toggleForm = () => {
     setErrors({});
     setMessage("");
@@ -46,40 +48,29 @@ const AuthForm: React.FC = () => {
       : formData;
 
     try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        if (data.errors) {
-          setErrors(data.errors);
-        } else if (data.message) {
-          setMessage(data.message);
-        } else {
-          setMessage("Something went wrong");
+      const res = await api.post(url,payload)
+console.log(res)
+      if(res.status===201 || res.status===200){
+        setMessage(res.data.message)
+        if(isLogin){
+          navigate('/dashboard')
         }
-      } else {
-        setMessage(data.message);
         setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          password: "",
-        });
+  name:"",
+  email:'',
+  phone:'',
+  password:''
+})
       }
-    } catch {
-      setMessage("Network error");
+    }
+    catch(error){
+console.log(error)
     }
   };
 
   return (
     <div className="bg-black text-white min-h-screen flex items-center justify-center">
-      <div className="w-[50%] border-2 border-white p-5">
+      <div className="w-[50%] md:w-[40%] xl:w-[35%]  border-2 border-white p-5">
         <h2 className="text-4xl font-semibold mb-6 text-center">
           {isLogin ? "Login" : "Register"}
         </h2>
