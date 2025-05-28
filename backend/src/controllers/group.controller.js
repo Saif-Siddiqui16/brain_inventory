@@ -79,17 +79,17 @@ await group.save();
     if (user) {
 
       mailOptions = {
-        from: '"Group Expense App" <no-reply@example.com>',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: `Invitation to join group "${group.name}"`,
         text: `Hi ${user.name},\n\nYou've been invited to join the group "${group.name}". Please log in to your account to view the group and share expenses.\n\nThanks!`,
       };
     } else {
       mailOptions = {
-        from: '"Group Expense App" <no-reply@example.com>',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: `Invitation to join group "${group.name}"`,
-        text: `Hi,\n\nYou've been invited to join the group "${group.name}" on Group Expense App.\nPlease register here: http://yourfrontend.com/auth/signup\n\nThanks!`,
+        text: `Hi,\n\nYou've been invited to join the group "${group.name}" on Group Expense App.\nPlease register here: http://yourfrontend.com/api/auth/register\n\nThanks!`,
       };
     }
 
