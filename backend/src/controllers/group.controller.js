@@ -2,6 +2,7 @@ import { Group } from "../models/group.model.js";
 import { User } from "../models/user.model.js";
 import { v4 as uuidv4 } from "uuid";
 import { transporter } from "../utils/email.js";
+import { generateUniqueId } from "../utils/generateUUID.js";
 
 export const createGroup = async (req, res) => {
   try {
@@ -71,7 +72,7 @@ const groupId = req.params.id;
       email,
       uniqueId,
     })
-
+await group.save();
     let mailOptions;
 
     if (user) {
