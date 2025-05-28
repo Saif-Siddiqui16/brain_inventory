@@ -48,7 +48,8 @@ export const deleteGroup = async (req, res) => {
 
 export const inviteMember = async (req, res) => {
   try {
-const groupId = req.params.id;
+const groupId = req.params.groupId;
+
     const { email } = req.body;
     const inviterId = req.user.id; 
 
@@ -93,7 +94,7 @@ await group.save();
     }
 
     // Send email
-    await transporter.sendMail(mailOptions);
+   await transporter.sendMail(mailOptions);
 
     res.json({ message: "Invitation sent successfully" });
   } catch (error) {
