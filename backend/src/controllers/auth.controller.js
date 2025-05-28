@@ -133,3 +133,7 @@ export const refreshAccessToken = (req, res) => {
 export const logoutUser = (req, res) => {
   res.clearCookie("accessToken").clearCookie("refreshToken").json({ message: "Logged out" });
 };
+
+export const getUserId=(req,res)=>{
+ res.json(req.user.id) 
+}
