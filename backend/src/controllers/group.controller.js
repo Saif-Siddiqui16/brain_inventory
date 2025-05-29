@@ -119,10 +119,8 @@ export const getGroupDetails = async (req, res) => {
 export const getUserGroups = async (req, res) => {
   try {
     const userId = req.user.id;
-console.log("userd",userId)
-    // Find all groups where user is a member
     const groups = await Group.find({ "members.user": userId })
-      .select("name createdBy") // select only necessary fields to optimize
+      .select("name createdBy") 
       .populate("createdBy", "name email");
 
     res.json(groups);
